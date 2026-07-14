@@ -1,5 +1,5 @@
-# bash-recon-tool
-a very simple yet effective bash script that automates fast Nmap scan.
+# bash-recon-tool WIP (Work In Progress)
+a very simple yet effective bash script that automates fast Nmap scan, it's not final yet of course.
 
 ## Features
 
