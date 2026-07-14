@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# simple recon script
+
+target="$1"
+
+if [ -z "$target" ]; then
+    echo "Usage: ./recon.sh <target-ip>"
+
+fi
+
+echo "[+] starting recon on $target..."
+
+echo "[+] pinging target..."
+ping -c 2 "$target"
+
+echo "[+] running a quick Nmap scan on target..."
+nmap -F "$target" -oN nmap_quick_"$target".txt
+
+echo "[+] finished recon scan. information saved on nmap_quick_$target.txt"
