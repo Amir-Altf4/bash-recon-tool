@@ -6,8 +6,10 @@ target="$1"
 
 if [ -z "$target" ]; then
     echo "Usage: ./recon.sh <target-ip>"
-
+    exit 1
 fi
+
+mkdir -p results
 
 echo "[+] starting recon on $target..."
 
@@ -15,6 +17,28 @@ echo "[+] pinging target..."
 ping -c 2 "$target"
 
 echo "[+] running a quick Nmap scan on target..."
-nmap -F "$target" -oN nmap_quick_"$target".txt
+nmap -F "$target" -oG results/nmap_quick_"$target".txt
+open_ports=$(grep "Ports:" results/nmap_quick_$target.txt | grep -oE "[0-9]+/open" | cut -d'/' -f1 | paste -sd, -)
 
-echo "[+] finished recon scan. information saved on nmap_quick_$target.txt"
+if [ -z "$open_ports" ]; then
+    echo "No open ports found"
+    exit 0
+fi
+
+echo "[+] running a second nmap scan on open ports..."
+nmap -sC -sV -p "$open_ports" "$target" -oN results/full_nmap_"$target".txt
+
+echo "[+] finished full recon scan. information saved on results/full_nmap_$target.txt"
+
+if [[ "$open_ports" == *"80"* ]] || [[ "$open_ports" == *"443"* ]]; then
+     echo "[+] web port found, running gobuster"
+gobuster dir -u http://"$target" -w /usr/share/wordlists/dirb/common.txt -o results/gobuster_"$target".txt
+     echo "[+] gobuster scan finished, results saved to results/gobuster_$target.txt"
+
+
+echo "=== Recon Summary for $target ==="
+echo "Open ports: $open_ports"
+echo "Full scan: results/full_nmap_$target.txt"
+echo "gobuster scan: results/gobuster_$target.txt"
+
+fi
