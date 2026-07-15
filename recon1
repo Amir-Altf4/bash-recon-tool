@@ -35,10 +35,10 @@ if [[ "$open_ports" == *"80"* ]] || [[ "$open_ports" == *"443"* ]]; then
 gobuster dir -u http://"$target" -w /usr/share/wordlists/dirb/common.txt -o results/gobuster_"$target".txt
      echo "[+] gobuster scan finished, results saved to results/gobuster_$target.txt"
 
+echo "gobuster scan: results/gobuster_$target.txt"
+
+fi
 
 echo "=== Recon Summary for $target ==="
 echo "Open ports: $open_ports"
 echo "Full scan: results/full_nmap_$target.txt"
-echo "gobuster scan: results/gobuster_$target.txt"
-
-fi
