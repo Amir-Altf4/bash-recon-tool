@@ -6,12 +6,15 @@ a very simple yet effective bash script that automates fast Nmap scan, it's not 
 - Checks user input
 - Runs a fast Nmap scan (-F)
 - Saves output to a text file
-- Easy to modify
+- Finds open ports based on the scan
+- runs a second nmap scan and finds web ports
+- does a gobuster scan on the web ports
 
 ## Requirements
 
 - Bash
 - Nmap
+- gobuster
 
 ## Example Output
 
@@ -19,6 +22,8 @@ a very simple yet effective bash script that automates fast Nmap scan, it's not 
 starting recon on...
 pinging...
 running quick Nmap scan...
+finished full recon scan.
+gobuster scan finished, results saved to...
 ```
 
 ## Future Improvements
