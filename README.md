@@ -1,5 +1,5 @@
-# bash-recon-tool WIP (Work In Progress)
-a very simple yet effective bash script that automates fast Nmap scan, it's not final yet of course.
+# bash-recon-tool
+an effective bash script that automates full Nmap & gobuster scan. 
 
 ## Features
 
@@ -24,11 +24,4 @@ pinging...
 running quick Nmap scan...
 finished full recon scan.
 gobuster scan finished, results saved to...
-```
-
-## Future Improvements
-
-- Service detection
-- OS detection
-- Better error handling
-- Multiple scan modes
+``` 
